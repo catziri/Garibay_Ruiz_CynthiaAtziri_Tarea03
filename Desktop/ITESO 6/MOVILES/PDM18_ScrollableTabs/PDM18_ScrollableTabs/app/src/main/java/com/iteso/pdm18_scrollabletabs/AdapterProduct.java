@@ -40,6 +40,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         public TextView mLocation;
         public TextView mPhone;
         public Button mDetail;
+        public Button mShare;
         public ImageView mProductImage;
         public ImageView mProductThumbnail;
         public RelativeLayout mEventLayout;
@@ -52,6 +53,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
             mLocation = v.findViewById(R.id.item_product_location);
             mPhone = v.findViewById(R.id.item_product_phone);
             mDetail = v.findViewById(R.id.item_product_detail);
+            mShare = v.findViewById(R.id.item_product_share);
             mProductImage = (ImageView) v.findViewById(R.id.item_product_image);
             mProductThumbnail = (ImageView) v.findViewById(R.id.item_product_thumbnail);
         }
@@ -76,6 +78,13 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
                 int p = position;
                 Toast t=Toast.makeText(v.getContext(), mDataSet.get(p).toString() ,Toast.LENGTH_SHORT);
                 t.show();
+            }
+        });
+        holder.mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), mDataSet.get(position).toString(),
+                        Toast.LENGTH_LONG).show();
             }
         });
         holder.mDetail.setOnClickListener(new View.OnClickListener() {
