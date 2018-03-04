@@ -1,108 +1,66 @@
 package com.iteso.pdm18_scrollabletabs;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.iteso.pdm18_scrollabletabs.beans.ItemProduct;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TechnologyFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TechnologyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class TechnologyFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public TechnologyFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TechnologyFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TechnologyFragment newInstance(String param1, String param2) {
-        TechnologyFragment fragment = new TechnologyFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_technology, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        View view = inflater.inflate(R.layout.fragment_technology, container, false);
+        RecyclerView recyclerView = (RecyclerView)
+                view.findViewById(R.id.fragment_recycler_view);
+        // Use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+        // Use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        ArrayList<ItemProduct> myDataSet = new ArrayList<ItemProduct>();
+        ItemProduct itemProduct = new ItemProduct();
+        itemProduct.setTitle("MacBook Pro 17\"");
+        itemProduct.setStore("BestBuy");
+        itemProduct.setLocation("Zapopan, Jalisco");
+        itemProduct.setPhone("3314748908");
+        itemProduct.setImage(0);
+        itemProduct.setDescription("Llevate esta Mac con un 30% de descuento para que puedas programar para XCode y Android sin tener que batallar tanto como en tu Windows");
+        myDataSet.add(itemProduct);
+        ItemProduct itemProduct2 = new ItemProduct();
+        itemProduct2.setTitle("Alienware\"");
+        itemProduct2.setStore("BestBuy");
+        itemProduct2.setLocation("Guadalajara, Jalisco");
+        itemProduct2.setPhone("3310156716");
+        itemProduct2.setImage(1);
+        itemProduct2.setDescription("Llevate esta Alienware con un 50% de descuento");
+        myDataSet.add(itemProduct2);
+        ItemProduct itemProduct3 = new ItemProduct();
+        itemProduct3.setTitle("MacBook Pro 17\"");
+        itemProduct3.setStore("BestBuy");
+        itemProduct3.setLocation("Zapopan, Jalisco");
+        itemProduct3.setPhone("3314748908");
+        itemProduct3.setImage(0);
+        itemProduct3.setDescription("Llevate esta Mac con un 30% de descuento para que puedas programar para XCode y Android sin tener que batallar tanto como en tu Windows");
+        myDataSet.add(itemProduct3);
+        mAdapter = new AdapterProduct(getActivity(), myDataSet);
+        recyclerView.setAdapter(mAdapter);
+        return view;
     }
 }
